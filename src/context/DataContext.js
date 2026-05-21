@@ -49,6 +49,21 @@ const defaultData = {
     championForno: null,
     alertaSeguranca: null,
   },
+  estilo: {
+    corHeader: '#1a1a2e',
+    corHeaderGente: '#1a3a2e',
+    corLabelYellow: '#ffe600',
+    corLabelOrange: '#ff8c00',
+    corLabelGray: '#555555',
+    corLabelGreen: '#1a5c2e',
+    corEngagementValor: '#1565c0',
+    corRegrasBullet: '#e53935',
+    corFundo: '#f5f5f0',
+    fonteTitulos: 'Syne',
+    tamanhoEngagement: '2.2',
+    tamanhoRegras: '0.95',
+    tamanhoListas: '0.82',
+  },
 };
 
 const DataContext = createContext(null);
@@ -57,17 +72,19 @@ export function DataProvider({ children }) {
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem('vpo_data');
-      return saved ? JSON.parse(saved) : defaultData;
-    } catch {
-      return defaultData;
-    }
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // merge estilo para garantir novos campos
+        parsed.estilo = { ...defaultData.estilo, ...(parsed.estilo || {}) };
+        return parsed;
+      }
+    } catch {}
+    return defaultData;
   });
 
   const updateData = (newData) => {
     setData(newData);
-    try {
-      localStorage.setItem('vpo_data', JSON.stringify(newData));
-    } catch {}
+    try { localStorage.setItem('vpo_data', JSON.stringify(newData)); } catch {}
   };
 
   return (

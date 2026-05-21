@@ -10,16 +10,11 @@ export default function Admin({ onSair }) {
   const [erroSenha, setErroSenha] = useState(false);
   const [aba, setAba] = useState('engagement');
   const [salvo, setSalvo] = useState(false);
-
   const { data, updateData } = useData();
 
   const login = () => {
-    if (senha === SENHA) {
-      setAutenticado(true);
-      setErroSenha(false);
-    } else {
-      setErroSenha(true);
-    }
+    if (senha === SENHA) { setAutenticado(true); setErroSenha(false); }
+    else setErroSenha(true);
   };
 
   const salvar = (novoData) => {
@@ -35,14 +30,10 @@ export default function Admin({ onSair }) {
           <div className="login-logo">🛡️</div>
           <h1>Portal Admin</h1>
           <p>Quadro VPO — Ambev</p>
-          <input
-            type="password"
-            placeholder="Senha de acesso"
-            value={senha}
+          <input type="password" placeholder="Senha de acesso" value={senha}
             onChange={e => setSenha(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && login()}
-            className={erroSenha ? 'erro' : ''}
-          />
+            className={erroSenha ? 'erro' : ''} />
           {erroSenha && <p className="erro-msg">Senha incorreta</p>}
           <button onClick={login}>Entrar</button>
           <button className="btn-voltar" onClick={onSair}>← Voltar ao quadro</button>
@@ -51,26 +42,24 @@ export default function Admin({ onSair }) {
     );
   }
 
+  const abas = [
+    { id: 'engagement', label: '📊 Engagement' },
+    { id: 'banco', label: '⏰ Banco de Horas' },
+    { id: 'ordens', label: '📋 Ordens SEG' },
+    { id: 'regras', label: '⚠️ Regras que Salvam Vidas' },
+    { id: 'precursores', label: '🔬 Precursores de SIF' },
+    { id: 'imagens', label: '🖼️ Imagens' },
+    { id: 'estilo', label: '🎨 Personalização' },
+  ];
+
   return (
     <div className="admin-root">
       <aside className="admin-sidebar">
-        <div className="admin-logo">
-          <span>🛡️</span>
-          <span>Admin VPO</span>
-        </div>
-        {[
-          { id: 'engagement', label: '📊 Engagement' },
-          { id: 'banco', label: '⏰ Banco de Horas' },
-          { id: 'ordens', label: '📋 Ordens SEG' },
-          { id: 'regras', label: '⚠️ Regras que Salvam Vidas' },
-          { id: 'precursores', label: '🔬 Precursores de SIF' },
-          { id: 'imagens', label: '🖼️ Imagens' },
-        ].map(item => (
-          <button
-            key={item.id}
+        <div className="admin-logo"><span>🛡️</span><span>Admin VPO</span></div>
+        {abas.map(item => (
+          <button key={item.id}
             className={`admin-nav-btn ${aba === item.id ? 'ativo' : ''}`}
-            onClick={() => setAba(item.id)}
-          >
+            onClick={() => setAba(item.id)}>
             {item.label}
           </button>
         ))}
@@ -81,19 +70,17 @@ export default function Admin({ onSair }) {
 
       <main className="admin-main">
         <div className="admin-topbar">
-          <h2>{
-            { engagement: 'Engagement', banco: 'Banco de Horas', ordens: 'Ordens SEG', regras: 'Regras que Salvam Vidas', precursores: 'Precursores de SIF', imagens: 'Imagens' }[aba]
-          }</h2>
+          <h2>{abas.find(a => a.id === aba)?.label}</h2>
           {salvo && <span className="salvo-badge">✅ Salvo!</span>}
         </div>
-
         <div className="admin-content">
-          {aba === 'engagement' && <AbaEngagement data={data} salvar={salvar} />}
-          {aba === 'banco' && <AbaLista chave="bancoHoras" label="Banco de Horas" data={data} salvar={salvar} />}
-          {aba === 'ordens' && <AbaLista chave="ordensSeg" label="Ordens SEG" data={data} salvar={salvar} />}
-          {aba === 'regras' && <AbaRegras data={data} salvar={salvar} />}
-          {aba === 'precursores' && <AbaPrecursores data={data} salvar={salvar} />}
-          {aba === 'imagens' && <AbaImagens data={data} salvar={salvar} />}
+          {aba === 'engagement'   && <AbaEngagement data={data} salvar={salvar} />}
+          {aba === 'banco'        && <AbaLista chave="bancoHoras" label="Banco de Horas" data={data} salvar={salvar} />}
+          {aba === 'ordens'       && <AbaLista chave="ordensSeg" label="Ordens SEG" data={data} salvar={salvar} />}
+          {aba === 'regras'       && <AbaRegras data={data} salvar={salvar} />}
+          {aba === 'precursores'  && <AbaPrecursores data={data} salvar={salvar} />}
+          {aba === 'imagens'      && <AbaImagens data={data} salvar={salvar} />}
+          {aba === 'estilo'       && <AbaEstilo data={data} salvar={salvar} />}
         </div>
       </main>
     </div>
@@ -103,98 +90,61 @@ export default function Admin({ onSair }) {
 /* ── Engagement ── */
 function AbaEngagement({ data, salvar }) {
   const [form, setForm] = useState({ ...data.engagement });
-
-  const handleChange = (campo, valor) => setForm(f => ({ ...f, [campo]: valor }));
-
-  const handleSalvar = () => salvar({ ...data, engagement: form });
-
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
   return (
     <div className="aba-form">
       <div className="form-group">
         <label>Processo (%)</label>
-        <input type="number" min="0" max="100" value={form.processo} onChange={e => handleChange('processo', e.target.value)} />
+        <input type="number" min="0" max="100" value={form.processo} onChange={e => set('processo', e.target.value)} />
       </div>
       <div className="form-group">
         <label>Eficiência do Gestor (%)</label>
-        <input type="number" min="0" max="100" value={form.eficienciaGestor} onChange={e => handleChange('eficienciaGestor', e.target.value)} />
+        <input type="number" min="0" max="100" value={form.eficienciaGestor} onChange={e => set('eficienciaGestor', e.target.value)} />
       </div>
       <div className="form-group">
         <label>Assinatura / Período</label>
-        <input type="text" value={form.assinatura} onChange={e => handleChange('assinatura', e.target.value)} placeholder="Ex: Pereira Jan / Jun" />
+        <input type="text" value={form.assinatura} onChange={e => set('assinatura', e.target.value)} placeholder="Ex: Pereira Jan / Jun" />
       </div>
-      <button className="btn-salvar" onClick={handleSalvar}>Salvar</button>
+      <button className="btn-salvar" onClick={() => salvar({ ...data, engagement: form })}>Salvar</button>
     </div>
   );
 }
 
-/* ── Lista genérica (Banco de Horas / Ordens SEG) ── */
+/* ── Lista genérica ── */
 function AbaLista({ chave, label, data, salvar }) {
   const [itens, setItens] = useState([...data[chave]]);
-
-  const adicionar = () => setItens(prev => [...prev, { id: Date.now(), data: '', nome: '' }]);
-
-  const remover = (id) => setItens(prev => prev.filter(i => i.id !== id));
-
-  const atualizar = (id, campo, valor) => setItens(prev =>
-    prev.map(i => i.id === id ? { ...i, [campo]: valor } : i)
-  );
-
-  const handleSalvar = () => salvar({ ...data, [chave]: itens });
-
+  const adicionar = () => setItens(p => [...p, { id: Date.now(), data: '', nome: '' }]);
+  const remover = (id) => setItens(p => p.filter(i => i.id !== id));
+  const atualizar = (id, campo, valor) => setItens(p => p.map(i => i.id === id ? { ...i, [campo]: valor } : i));
   return (
     <div className="aba-lista">
       <p className="aba-desc">Gerencie os registros de {label}.</p>
       <table className="lista-table">
-        <thead>
-          <tr>
-            <th>Data</th>
-            <th>Nome</th>
-            <th></th>
-          </tr>
-        </thead>
+        <thead><tr><th>Data</th><th>Nome</th><th></th></tr></thead>
         <tbody>
           {itens.map(item => (
             <tr key={item.id}>
-              <td>
-                <input
-                  type="text"
-                  value={item.data}
-                  onChange={e => atualizar(item.id, 'data', e.target.value)}
-                  placeholder="Ex: 13/06"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={item.nome}
-                  onChange={e => atualizar(item.id, 'nome', e.target.value)}
-                  placeholder="Nome"
-                />
-              </td>
-              <td>
-                <button className="btn-remover" onClick={() => remover(item.id)}>✕</button>
-              </td>
+              <td><input type="text" value={item.data} onChange={e => atualizar(item.id, 'data', e.target.value)} placeholder="Ex: 13/06" /></td>
+              <td><input type="text" value={item.nome} onChange={e => atualizar(item.id, 'nome', e.target.value)} placeholder="Nome" /></td>
+              <td><button className="btn-remover" onClick={() => remover(item.id)}>✕</button></td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="lista-actions">
         <button className="btn-adicionar" onClick={adicionar}>+ Adicionar linha</button>
-        <button className="btn-salvar" onClick={handleSalvar}>Salvar</button>
+        <button className="btn-salvar" onClick={() => salvar({ ...data, [chave]: itens })}>Salvar</button>
       </div>
     </div>
   );
 }
 
-/* ── Regras que Salvam Vidas ── */
+/* ── Regras ── */
 function AbaRegras({ data, salvar }) {
   const [regras, setRegras] = useState([...data.regrasSalvamVidas]);
-
-  const atualizar = (i, val) => setRegras(prev => prev.map((r, idx) => idx === i ? val : r));
-  const adicionar = () => setRegras(prev => [...prev, '']);
-  const remover = (i) => setRegras(prev => prev.filter((_, idx) => idx !== i));
-  const handleSalvar = () => salvar({ ...data, regrasSalvamVidas: regras });
-
+  const atualizar = (i, v) => setRegras(p => p.map((r, idx) => idx === i ? v : r));
+  const adicionar = () => setRegras(p => [...p, '']);
+  const remover = (i) => setRegras(p => p.filter((_, idx) => idx !== i));
   return (
     <div className="aba-lista">
       <p className="aba-desc">Lista de regras exibidas no quadro.</p>
@@ -202,43 +152,31 @@ function AbaRegras({ data, salvar }) {
         {regras.map((r, i) => (
           <div key={i} className="regra-admin-row">
             <span className="regra-num">{i + 1}.</span>
-            <input
-              type="text"
-              value={r}
-              onChange={e => atualizar(i, e.target.value)}
-              placeholder="Regra..."
-            />
+            <input type="text" value={r} onChange={e => atualizar(i, e.target.value)} placeholder="Regra..." />
             <button className="btn-remover" onClick={() => remover(i)}>✕</button>
           </div>
         ))}
       </div>
       <div className="lista-actions">
         <button className="btn-adicionar" onClick={adicionar}>+ Adicionar regra</button>
-        <button className="btn-salvar" onClick={handleSalvar}>Salvar</button>
+        <button className="btn-salvar" onClick={() => salvar({ ...data, regrasSalvamVidas: regras })}>Salvar</button>
       </div>
     </div>
   );
 }
 
-/* ── Precursores de SIF ── */
+/* ── Precursores ── */
 function AbaPrecursores({ data, salvar }) {
   const [form, setForm] = useState(JSON.parse(JSON.stringify(data.precursoresSIF)));
-
-  const atualizarItem = (i, val) => setForm(f => ({ ...f, itens: f.itens.map((x, idx) => idx === i ? val : x) }));
+  const atualizarItem = (i, v) => setForm(f => ({ ...f, itens: f.itens.map((x, idx) => idx === i ? v : x) }));
   const adicionarItem = () => setForm(f => ({ ...f, itens: [...f.itens, ''] }));
   const removerItem = (i) => setForm(f => ({ ...f, itens: f.itens.filter((_, idx) => idx !== i) }));
-
-  const atualizarIV = (i, val) => setForm(f => ({ ...f, ivs: f.ivs.map((x, idx) => idx === i ? val : x) }));
+  const atualizarIV = (i, v) => setForm(f => ({ ...f, ivs: f.ivs.map((x, idx) => idx === i ? v : x) }));
   const adicionarIV = () => setForm(f => ({ ...f, ivs: [...f.ivs, ''] }));
   const removerIV = (i) => setForm(f => ({ ...f, ivs: f.ivs.filter((_, idx) => idx !== i) }));
-
   const atualizarValor = (i, campo, val) => setForm(f => ({
-    ...f,
-    valores: f.valores.map((v, idx) => idx === i ? { ...v, [campo]: campo === 'valor' ? Number(val) : val } : v)
+    ...f, valores: f.valores.map((v, idx) => idx === i ? { ...v, [campo]: campo === 'valor' ? Number(val) : val } : v)
   }));
-
-  const handleSalvar = () => salvar({ ...data, precursoresSIF: form });
-
   return (
     <div className="aba-lista">
       <h3>Itens Precursores</h3>
@@ -271,9 +209,8 @@ function AbaPrecursores({ data, salvar }) {
           ))}
         </tbody>
       </table>
-
       <div className="lista-actions" style={{ marginTop: '1rem' }}>
-        <button className="btn-salvar" onClick={handleSalvar}>Salvar tudo</button>
+        <button className="btn-salvar" onClick={() => salvar({ ...data, precursoresSIF: form })}>Salvar tudo</button>
       </div>
     </div>
   );
@@ -287,25 +224,16 @@ function AbaImagens({ data, salvar }) {
     { chave: 'championForno', label: 'Champion Forno' },
     { chave: 'alertaSeguranca', label: 'Alerta de Segurança' },
   ];
-
   const handleImagem = (chave, file) => {
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (e) => {
-      const novas = { ...data.imagens, [chave]: e.target.result };
-      salvar({ ...data, imagens: novas });
-    };
+    reader.onload = (e) => salvar({ ...data, imagens: { ...data.imagens, [chave]: e.target.result } });
     reader.readAsDataURL(file);
   };
-
-  const removerImagem = (chave) => {
-    const novas = { ...data.imagens, [chave]: null };
-    salvar({ ...data, imagens: novas });
-  };
-
+  const remover = (chave) => salvar({ ...data, imagens: { ...data.imagens, [chave]: null } });
   return (
     <div className="aba-imagens">
-      <p className="aba-desc">Faça upload das imagens para cada quadrante. Formatos aceitos: JPG, PNG, PDF (como imagem).</p>
+      <p className="aba-desc">Faça upload das imagens para cada quadrante.</p>
       <div className="imagens-grid">
         {campos.map(({ chave, label }) => (
           <div key={chave} className="imagem-card">
@@ -313,16 +241,11 @@ function AbaImagens({ data, salvar }) {
             {data.imagens[chave] ? (
               <div className="imagem-preview">
                 <img src={data.imagens[chave]} alt={label} />
-                <button className="btn-remover-img" onClick={() => removerImagem(chave)}>✕ Remover</button>
+                <button className="btn-remover-img" onClick={() => remover(chave)}>✕ Remover</button>
               </div>
             ) : (
               <label className="upload-area">
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  onChange={e => handleImagem(chave, e.target.files[0])}
-                />
+                <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => handleImagem(chave, e.target.files[0])} />
                 <span className="upload-icon">📁</span>
                 <span>Clique para enviar</span>
                 <span className="upload-hint">JPG, PNG até 5MB</span>
@@ -330,6 +253,101 @@ function AbaImagens({ data, salvar }) {
             )}
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Estilo / Personalização ── */
+function AbaEstilo({ data, salvar }) {
+  const [form, setForm] = useState({ ...data.estilo });
+  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+
+  const cores = [
+    { k: 'corHeader', label: 'Cabeçalho Segurança' },
+    { k: 'corHeaderGente', label: 'Cabeçalho Gente' },
+    { k: 'corLabelYellow', label: 'Etiqueta Amarela' },
+    { k: 'corLabelOrange', label: 'Etiqueta Laranja' },
+    { k: 'corLabelGray', label: 'Etiqueta Cinza' },
+    { k: 'corLabelGreen', label: 'Etiqueta Verde' },
+    { k: 'corEngagementValor', label: 'Cor dos % (Engagement)' },
+    { k: 'corRegrasBullet', label: 'Cor dos Bullets (Regras)' },
+    { k: 'corFundo', label: 'Cor de Fundo da Página' },
+  ];
+
+  const fontes = ['Syne', 'Arial', 'Georgia', 'Trebuchet MS', 'Verdana', 'Tahoma'];
+
+  return (
+    <div className="aba-estilo">
+      <p className="aba-desc">Personalize cores, fontes e tamanhos do quadro visual.</p>
+
+      <div className="estilo-section">
+        <h3>🎨 Cores</h3>
+        <div className="cores-grid">
+          {cores.map(({ k, label }) => (
+            <div key={k} className="cor-item">
+              <label>{label}</label>
+              <div className="cor-input-row">
+                <input type="color" value={form[k]} onChange={e => set(k, e.target.value)} />
+                <input type="text" value={form[k]} onChange={e => set(k, e.target.value)} placeholder="#000000" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="estilo-section">
+        <h3>🔤 Fonte</h3>
+        <div className="form-group">
+          <label>Fonte dos Títulos</label>
+          <select value={form.fonteTitulos} onChange={e => set('fonteTitulos', e.target.value)}>
+            {fontes.map(f => <option key={f} value={f}>{f}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div className="estilo-section">
+        <h3>📐 Tamanhos de Texto</h3>
+        <div className="tamanhos-grid">
+          <div className="form-group">
+            <label>Números do Engagement (rem)</label>
+            <input type="range" min="1.2" max="4" step="0.1" value={form.tamanhoEngagement}
+              onChange={e => set('tamanhoEngagement', e.target.value)} />
+            <span className="range-valor">{form.tamanhoEngagement}rem</span>
+          </div>
+          <div className="form-group">
+            <label>Texto das Regras (rem)</label>
+            <input type="range" min="0.6" max="1.4" step="0.05" value={form.tamanhoRegras}
+              onChange={e => set('tamanhoRegras', e.target.value)} />
+            <span className="range-valor">{form.tamanhoRegras}rem</span>
+          </div>
+          <div className="form-group">
+            <label>Texto das Listas (rem)</label>
+            <input type="range" min="0.6" max="1.2" step="0.05" value={form.tamanhoListas}
+              onChange={e => set('tamanhoListas', e.target.value)} />
+            <span className="range-valor">{form.tamanhoListas}rem</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="estilo-actions">
+        <button className="btn-salvar" onClick={() => salvar({ ...data, estilo: form })}>
+          Salvar Personalização
+        </button>
+        <button className="btn-reset" onClick={() => {
+          const padrao = {
+            corHeader: '#1a1a2e', corHeaderGente: '#1a3a2e',
+            corLabelYellow: '#ffe600', corLabelOrange: '#ff8c00',
+            corLabelGray: '#555555', corLabelGreen: '#1a5c2e',
+            corEngagementValor: '#1565c0', corRegrasBullet: '#e53935',
+            corFundo: '#f5f5f0', fonteTitulos: 'Syne',
+            tamanhoEngagement: '2.2', tamanhoRegras: '0.95', tamanhoListas: '0.82',
+          };
+          setForm(padrao);
+          salvar({ ...data, estilo: padrao });
+        }}>
+          Restaurar Padrão
+        </button>
       </div>
     </div>
   );

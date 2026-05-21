@@ -486,3 +486,133 @@
   color: #aaa !important;
   font-weight: 400 !important;
 }
+
+/* ── Personalização ── */
+.aba-estilo {
+  max-width: 700px;
+}
+
+.estilo-section {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.estilo-section h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.cores-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.cor-item label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.cor-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cor-input-row input[type="color"] {
+  width: 38px;
+  height: 34px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 2px;
+  cursor: pointer;
+  background: none;
+}
+
+.cor-input-row input[type="text"] {
+  flex: 1;
+  padding: 7px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
+}
+
+.cor-input-row input[type="text"]:focus {
+  border-color: #1565c0;
+}
+
+.tamanhos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group select {
+  padding: 9px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Syne', sans-serif;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+  width: 100%;
+}
+
+.form-group select:focus {
+  border-color: #1565c0;
+}
+
+.form-group input[type="range"] {
+  width: 100%;
+  accent-color: #1565c0;
+  margin-top: 4px;
+}
+
+.range-valor {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #1565c0;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.estilo-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-reset {
+  background: none;
+  border: 1.5px solid #ddd;
+  color: #888;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-reset:hover {
+  border-color: #e53935;
+  color: #e53935;
+}
