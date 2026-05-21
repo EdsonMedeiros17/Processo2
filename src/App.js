@@ -1,19 +1,37 @@
 import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import Dashboard from './pages/Dashboard';
+import { DataProvider } from './context/DataContext';
+import VPODashboard from './pages/VPODashboard';
+import Admin from './admin/Admin';
 import './App.css';
 
-function App() {
-  const [activePage, setActivePage] = useState('dashboard');
+function AppInner() {
+  const [modo, setModo] = useState('dashboard'); // 'dashboard' | 'admin'
 
   return (
-    <div className="app">
-      <Sidebar activePage={activePage} setActivePage={setActivePage} />
-      <main className="main-content">
-        {activePage === 'dashboard' && <Dashboard />}
-      </main>
+    <div className="app-vpo">
+      {modo === 'dashboard' && (
+        <>
+          <VPODashboard />
+          <button
+            className="btn-admin-acesso"
+            onClick={() => setModo('admin')}
+            title="Acessar painel admin"
+          >
+            ⚙️ Admin
+          </button>
+        </>
+      )}
+      {modo === 'admin' && (
+        <Admin onSair={() => setModo('dashboard')} />
+      )}
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <DataProvider>
+      <AppInner />
+    </DataProvider>
+  );
+}
