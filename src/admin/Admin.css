@@ -1,0 +1,488 @@
+/* Login */
+.admin-login {
+  min-height: 100vh;
+  background: #f0f0eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-logo {
+  font-size: 2.5rem;
+  margin-bottom: 4px;
+}
+
+.login-box h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.login-box p {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-top: 8px;
+}
+
+.login-box input:focus {
+  border-color: #1565c0;
+}
+
+.login-box input.erro {
+  border-color: #e53935;
+}
+
+.erro-msg {
+  color: #e53935;
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-box button:hover {
+  background: #1565c0;
+}
+
+.btn-voltar {
+  background: transparent !important;
+  color: #888 !important;
+  border: 1px solid #ddd !important;
+  font-size: 0.8rem !important;
+}
+
+/* Admin layout */
+.admin-root {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f0;
+}
+
+.admin-sidebar {
+  width: 220px;
+  background: #1a1a2e;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  gap: 4px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.admin-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 8px 10px;
+  margin-bottom: 16px;
+}
+
+.admin-nav-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-nav-btn:hover {
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+}
+
+.admin-nav-btn.ativo {
+  background: rgba(255,255,255,0.13);
+  color: #fff;
+}
+
+.admin-sidebar-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-voltar-quadro {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #aaa;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.78rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: color 0.2s;
+}
+
+.btn-voltar-quadro:hover {
+  color: #fff;
+}
+
+/* Main */
+.admin-main {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-topbar {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-topbar h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.salvo-badge {
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid #a5d6a7;
+}
+
+.admin-content {
+  padding: 28px;
+  flex: 1;
+}
+
+/* Forms */
+.aba-form {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.form-group input {
+  padding: 9px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: 'Syne', sans-serif;
+}
+
+.form-group input:focus {
+  border-color: #1565c0;
+}
+
+.btn-salvar {
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+
+.btn-salvar:hover {
+  background: #1565c0;
+}
+
+/* Lista */
+.aba-lista {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 620px;
+}
+
+.aba-desc {
+  font-size: 0.82rem;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.aba-lista h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.lista-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+
+.lista-table th {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.lista-table td {
+  padding: 5px 8px;
+}
+
+.lista-table input {
+  padding: 7px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  width: 100%;
+  font-family: 'Syne', sans-serif;
+  outline: none;
+}
+
+.lista-table input:focus {
+  border-color: #1565c0;
+}
+
+.lista-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-adicionar {
+  background: none;
+  border: 1.5px dashed #bbb;
+  color: #666;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-adicionar:hover {
+  border-color: #1565c0;
+  color: #1565c0;
+}
+
+.btn-remover {
+  background: none;
+  border: none;
+  color: #e53935;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.btn-remover:hover {
+  background: #ffebee;
+}
+
+.regras-admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.regra-admin-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.regra-admin-row input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: 'Syne', sans-serif;
+  outline: none;
+}
+
+.regra-admin-row input:focus {
+  border-color: #1565c0;
+}
+
+.regra-num {
+  font-size: 0.78rem;
+  color: #aaa;
+  min-width: 18px;
+  font-weight: 700;
+}
+
+/* Imagens */
+.aba-imagens {
+  max-width: 720px;
+}
+
+.imagens-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.imagem-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.imagem-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #555;
+  letter-spacing: 0.07em;
+  background: #f5f5f0;
+  padding: 8px 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.imagem-preview {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.imagem-preview img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.btn-remover-img {
+  background: #ffebee;
+  color: #e53935;
+  border: 1px solid #ffcdd2;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 24px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 140px;
+}
+
+.upload-area:hover {
+  background: #f0f4ff;
+}
+
+.upload-icon {
+  font-size: 1.8rem;
+}
+
+.upload-area span {
+  font-size: 0.82rem;
+  color: #555;
+  font-weight: 600;
+}
+
+.upload-hint {
+  font-size: 0.7rem !important;
+  color: #aaa !important;
+  font-weight: 400 !important;
+}
