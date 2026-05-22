@@ -1,64 +1,51 @@
-# 🛡️ SecureDash — Security Dashboard
+# 🛡️ Quadro VPO — Ambev
 
-Dashboard de segurança web construída com React, hospedada gratuitamente na Vercel.
+## 🔥 Configurar o Firebase (OBRIGATÓRIO)
 
-## 🚀 Como fazer o deploy (Vercel — Grátis)
+### Passo 1 — Criar projeto no Firebase
+1. Acesse: https://console.firebase.google.com
+2. Clique em **"Criar um projeto"**
+3. Nome do projeto: `quadro-vpo` → clique em Continuar
+4. Desative o Google Analytics → clique em **"Criar projeto"**
 
-### Passo 1 — Subir no GitHub
+### Passo 2 — Criar o banco de dados (Firestore)
+1. No menu lateral clique em **"Firestore Database"**
+2. Clique em **"Criar banco de dados"**
+3. Selecione **"Iniciar no modo de teste"**
+4. Escolha a região: `southamerica-east1 (São Paulo)` → clique em **Ativar**
 
-```bash
-git init
-git add .
-git commit -m "feat: initial security dashboard"
-git branch -M main
-git remote add origin https://github.com/SEU_USUARIO/security-dashboard.git
-git push -u origin main
+### Passo 3 — Obter as chaves do projeto
+1. Clique na engrenagem ⚙️ → **"Configurações do projeto"**
+2. Role até **"Seus aplicativos"** → clique em **"</> Web"**
+3. Nome do app: `quadro-vpo` → clique em **"Registrar app"**
+4. Vai aparecer um bloco com `firebaseConfig` — **copie esses valores**
+
+### Passo 4 — Colar as chaves no código
+Abra o arquivo `src/firebase.js` e substitua os campos:
+```js
+const firebaseConfig = {
+  apiKey: "AIzaSy...",           // cole aqui
+  authDomain: "quadro-vpo.firebaseapp.com",
+  projectId: "quadro-vpo",
+  storageBucket: "quadro-vpo.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abc123"
+};
 ```
 
-### Passo 2 — Deploy na Vercel
-
-1. Acesse [vercel.com](https://vercel.com) e crie uma conta (pode usar o GitHub)
-2. Clique em **"Add New Project"**
-3. Selecione o repositório `security-dashboard`
-4. Clique em **"Deploy"** — a Vercel detecta automaticamente o React
-
-✅ Pronto! Em ~1 minuto seu site estará em: `https://security-dashboard-xxx.vercel.app`
-
-### Passo 3 — Deploy automático
-
-A partir de agora, todo `git push` faz o site atualizar automaticamente! 🎉
+### Passo 5 — Subir no GitHub
+Após editar o `firebase.js`, faça upload no GitHub normalmente.
+A Vercel atualiza o site automaticamente.
 
 ---
 
-## 💻 Rodar localmente
-
+## 🚀 Rodar localmente
 ```bash
 npm install
 npm start
 ```
 
-Acesse: http://localhost:3000
-
----
-
-## 📁 Estrutura
-
+## 🔐 Senha Admin
 ```
-src/
-├── components/
-│   ├── Sidebar.js       # Menu lateral
-│   └── Sidebar.css
-├── pages/
-│   ├── Dashboard.js     # Página principal
-│   └── Dashboard.css
-├── App.js               # Roteamento
-├── App.css              # Layout
-├── index.js             # Entry point
-└── index.css            # Variáveis globais / tema
+ambev2025
 ```
-
-## 🎨 Tema
-
-- Fundo escuro (navy/dark blue)
-- Fontes: Syne (display) + JetBrains Mono (código)
-- Paleta: Cyan, Green, Red, Yellow, Purple
