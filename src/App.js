@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
-import { DataProvider } from './context/DataContext';
+import { DataProvider, useData } from './context/DataContext';
 import VPODashboard from './pages/VPODashboard';
 import Admin from './admin/Admin';
 import './App.css';
 
 function AppInner() {
-  const [modo, setModo] = useState('dashboard'); // 'dashboard' | 'admin'
+  const [modo, setModo] = useState('dashboard');
+  const { carregando } = useData();
+
+  if (carregando) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner" />
+        <p>Carregando quadro...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="app-vpo">
