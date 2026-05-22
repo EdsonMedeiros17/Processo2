@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const defaultData = {
   engagement: {
@@ -67,28 +69,43 @@ const defaultData = {
 };
 
 const DataContext = createContext(null);
+const DOC_REF = () => doc(db, 'vpo', 'quadro');
 
 export function DataProvider({ children }) {
-  const [data, setData] = useState(() => {
-    try {
-      const saved = localStorage.getItem('vpo_data');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        // merge estilo para garantir novos campos
-        parsed.estilo = { ...defaultData.estilo, ...(parsed.estilo || {}) };
-        return parsed;
-      }
-    } catch {}
-    return defaultData;
-  });
+  const [data, setData] = useState(defaultData);
+  const [carregando, setCarregando] = useState(true);
 
-  const updateData = (newData) => {
-    setData(newData);
-    try { localStorage.setItem('vpo_data', JSON.stringify(newData)); } catch {}
+  // Escuta mudanças em tempo real do Firebase
+  useEffect(() => {
+    const unsub = onSnapshot(DOC_REF(), (snap) => {
+      if (snap.exists()) {
+        const remoto = snap.data();
+        // merge estilo para garantir novos campos
+        remoto.estilo = { ...defaultData.estilo, ...(remoto.estilo || {}) };
+        setData(remoto);
+      } else {
+        // Primeira vez: salva os dados padrão no Firebase
+        setDoc(DOC_REF(), defaultData);
+      }
+      setCarregando(false);
+    }, (error) => {
+      console.error('Firebase erro:', error);
+      setCarregando(false);
+    });
+    return () => unsub();
+  }, []);
+
+  const updateData = async (novoData) => {
+    setData(novoData); // atualiza local imediatamente
+    try {
+      await setDoc(DOC_REF(), novoData);
+    } catch (error) {
+      console.error('Erro ao salvar:', error);
+    }
   };
 
   return (
-    <DataContext.Provider value={{ data, updateData }}>
+    <DataContext.Provider value={{ data, updateData, carregando }}>
       {children}
     </DataContext.Provider>
   );
