@@ -231,9 +231,8 @@
 .ts-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 6px 0;
+  gap: 12px;
+  padding: 8px 0;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -251,25 +250,18 @@
   margin-top: 1px;
 }
 
-.ts-nivel-wrapper {
+.ts-nivel-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.ts-nivel-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 6px rgba(0,0,0,0.2);
-}
-
-.ts-nivel-num {
-  font-size: 1.2rem;
+  justify-content: center;
+  font-size: 1.1rem;
   font-weight: 800;
-  line-height: 1;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 /* Ordens de Segurança */
