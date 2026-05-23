@@ -4,7 +4,7 @@ import { db } from '../firebase';
 
 const defaultData = {
   territorioSeguro: [
-    { id: 1, nome: 'Forno', nivel: 'Verde', acaoFoco: 'Manter monitoramento diário' },
+    { id: 1, nome: 'Forno', nivel: '3', acaoFoco: 'Manter monitoramento diário' },
   ],
   alertasSeguranca: [
     { id: 1, unidade: 'Forno', ocorrencia: 'Vazamento identificado', acaoAplicavel: 'Isolamento imediato', data: '13/06' },
@@ -96,6 +96,12 @@ export function DataProvider({ children }) {
         remoto.estilo = { ...defaultData.estilo, ...(remoto.estilo || {}) };
         // migrate old data structure
         if (!remoto.territorioSeguro) remoto.territorioSeguro = defaultData.territorioSeguro;
+        // migrate old nivel text values to numbers
+        const nivelMigrar = { 'Verde': '4', 'Amarelo': '2', 'Vermelho': '1', 'Laranja': '2', 'Azul': '3', 'Roxo': '4' };
+        remoto.territorioSeguro = remoto.territorioSeguro.map(ts => ({
+          ...ts,
+          nivel: nivelMigrar[ts.nivel] !== undefined ? nivelMigrar[ts.nivel] : ts.nivel
+        }));
         if (!remoto.alertasSeguranca) remoto.alertasSeguranca = defaultData.alertasSeguranca;
         if (!remoto.championForno) remoto.championForno = defaultData.championForno;
         if (!remoto.gestaoTS) remoto.gestaoTS = defaultData.gestaoTS;
