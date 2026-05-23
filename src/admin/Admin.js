@@ -110,9 +110,11 @@ function AbaTS({ data, salvar }) {
             <div className="form-group">
               <label>Nível</label>
               <select value={item.nivel} onChange={e => atualizar(item.id, 'nivel', e.target.value)}>
-                <option>Verde</option>
-                <option>Amarelo</option>
-                <option>Vermelho</option>
+                <option value="0">0 — Preto</option>
+                <option value="1">1 — Vermelho</option>
+                <option value="2">2 — Laranja</option>
+                <option value="3">3 — Azul</option>
+                <option value="4">4 — Roxo</option>
               </select>
             </div>
             <button className="btn-remover" onClick={() => remover(item.id)}>✕</button>
