@@ -150,14 +150,13 @@ export default function VPODashboard() {
             <div className="ts-body">
               {territorioSeguro?.map(ts => (
                 <div key={ts.id} className="ts-row">
+                  <div className="ts-nivel-badge" style={{ background: nivelCor[ts.nivel] || '#888' }}>
+                    {ts.nivel}
+                  </div>
                   <div className="ts-info">
                     <p className="ts-nome">{ts.nome}</p>
                     <p className="ts-acao">{ts.acaoFoco}</p>
                   </div>
-                  <span className="ts-nivel-wrapper">
-                    <span className="ts-nivel-dot" style={{ background: nivelCor[ts.nivel] || '#888' }} />
-                    <span className="ts-nivel-num" style={{ color: nivelCor[ts.nivel] || '#888' }}>{ts.nivel}</span>
-                  </span>
                 </div>
               ))}
             </div>
@@ -191,4 +190,3 @@ export default function VPODashboard() {
     </div>
   );
 }
-
