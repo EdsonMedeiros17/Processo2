@@ -616,3 +616,43 @@
   border-color: #e53935;
   color: #e53935;
 }
+
+/* ── Novas seções ── */
+.ts-admin-row {
+  background: #f9f9f6;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.form-row-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 100px auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.form-group select {
+  padding: 9px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Syne', sans-serif;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+  width: 100%;
+}
+
+.form-group select:focus { border-color: #1565c0; }
