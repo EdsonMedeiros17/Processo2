@@ -50,7 +50,7 @@
   flex-shrink: 0;
 }
 
-/* GestÃ£o de TS */
+/* Gestão de TS */
 .gestao-ts-body {
   padding: 12px 14px;
   flex: 1;
@@ -217,7 +217,7 @@
   font-style: italic;
 }
 
-/* TerritÃ³rio Seguro */
+/* Território Seguro */
 .ts-card { flex: 0 0 auto; }
 
 .ts-body {
@@ -251,19 +251,28 @@
   margin-top: 1px;
 }
 
-.ts-nivel {
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: #fff;
-  padding: 3px 8px;
-  border-radius: 10px;
-  white-space: nowrap;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.ts-nivel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   flex-shrink: 0;
 }
 
-/* Ordens de SeguranÃ§a */
+.ts-nivel-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+
+.ts-nivel-num {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Ordens de Segurança */
 .ordens-card {
   flex: 1;
 }
