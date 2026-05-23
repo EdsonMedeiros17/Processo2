@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip } from 
 import './VPODashboard.css';
 
 const nivelCor = { '0': '#1a1a1a', '1': '#c62828', '2': '#e65100', '3': '#1565c0', '4': '#6a1b9a' };
+const getNivelCor = (n) => { const c = nivelCor[String(n)]; return c !== undefined ? c : '#aaa'; };
 const statusCor = { 'Concluído': '#2e7d32', 'Pendente': '#f9a825', 'Em andamento': '#1565c0', 'Cancelado': '#c62828' };
 
 export default function VPODashboard() {
@@ -150,7 +151,7 @@ export default function VPODashboard() {
             <div className="ts-body">
               {territorioSeguro?.map(ts => (
                 <div key={ts.id} className="ts-row">
-                  <div className="ts-nivel-badge" style={{ background: nivelCor[ts.nivel] || '#888' }}>
+                  <div className="ts-nivel-badge" style={{ background: getNivelCor(ts.nivel) }}>
                     {ts.nivel}
                   </div>
                   <div className="ts-info">
