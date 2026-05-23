@@ -3,7 +3,7 @@ import { useData } from '../context/DataContext';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, Tooltip } from 'recharts';
 import './VPODashboard.css';
 
-const nivelCor = { 'Verde': '#2e7d32', 'Amarelo': '#f9a825', 'Vermelho': '#c62828' };
+const nivelCor = { '0': '#1a1a1a', '1': '#c62828', '2': '#e65100', '3': '#1565c0', '4': '#6a1b9a' };
 const statusCor = { 'Concluído': '#2e7d32', 'Pendente': '#f9a825', 'Em andamento': '#1565c0', 'Cancelado': '#c62828' };
 
 export default function VPODashboard() {
@@ -154,8 +154,9 @@ export default function VPODashboard() {
                     <p className="ts-nome">{ts.nome}</p>
                     <p className="ts-acao">{ts.acaoFoco}</p>
                   </div>
-                  <span className="ts-nivel" style={{ background: nivelCor[ts.nivel] || '#888' }}>
-                    {ts.nivel}
+                  <span className="ts-nivel-wrapper">
+                    <span className="ts-nivel-dot" style={{ background: nivelCor[ts.nivel] || '#888' }} />
+                    <span className="ts-nivel-num" style={{ color: nivelCor[ts.nivel] || '#888' }}>{ts.nivel}</span>
                   </span>
                 </div>
               ))}
@@ -190,3 +191,4 @@ export default function VPODashboard() {
     </div>
   );
 }
+
