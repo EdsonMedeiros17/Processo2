@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const defaultData = {
@@ -75,16 +75,13 @@ export function DataProvider({ children }) {
   const [data, setData] = useState(defaultData);
   const [carregando, setCarregando] = useState(true);
 
-  // Escuta mudanças em tempo real do Firebase
   useEffect(() => {
     const unsub = onSnapshot(DOC_REF(), (snap) => {
       if (snap.exists()) {
         const remoto = snap.data();
-        // merge estilo para garantir novos campos
         remoto.estilo = { ...defaultData.estilo, ...(remoto.estilo || {}) };
         setData(remoto);
       } else {
-        // Primeira vez: salva os dados padrão no Firebase
         setDoc(DOC_REF(), defaultData);
       }
       setCarregando(false);
@@ -96,7 +93,7 @@ export function DataProvider({ children }) {
   }, []);
 
   const updateData = async (novoData) => {
-    setData(novoData); // atualiza local imediatamente
+    setData(novoData);
     try {
       await setDoc(DOC_REF(), novoData);
     } catch (error) {
