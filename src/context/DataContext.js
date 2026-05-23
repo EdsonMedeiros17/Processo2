@@ -3,20 +3,16 @@ import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const defaultData = {
-  engagement: {
-    processo: '98',
-    eficienciaGestor: '100',
-    assinatura: 'Pereira Jan / Jun',
-  },
-  bancoHoras: [
-    { id: 1, data: '13/06', nome: 'Matheus' },
-    { id: 2, data: '24/05', nome: 'Fábio' },
-    { id: 3, data: '20/06', nome: 'Marcos' },
+  territorioSeguro: [
+    { id: 1, nome: 'Forno', nivel: 'Verde', acaoFoco: 'Manter monitoramento diário' },
+  ],
+  alertasSeguranca: [
+    { id: 1, unidade: 'Forno', ocorrencia: 'Vazamento identificado', acaoAplicavel: 'Isolamento imediato', data: '13/06' },
   ],
   ordensSeg: [
-    { id: 1, data: '07/06', nome: 'Sandão' },
-    { id: 2, data: '07/07', nome: 'Sandra' },
-    { id: 3, data: '15/07', nome: 'Jorge' },
+    { id: 1, data: '07/06', ordem: 'OS-001', texto: 'Inspeção elétrica painel', status: 'Concluído' },
+    { id: 2, data: '07/07', ordem: 'OS-002', texto: 'Troca EPI setor A', status: 'Pendente' },
+    { id: 3, data: '15/07', ordem: 'OS-003', texto: 'Revisão extintores', status: 'Em andamento' },
   ],
   regrasSalvamVidas: [
     'Substâncias Perigosas',
@@ -28,27 +24,44 @@ const defaultData = {
   ],
   precursoresSIF: {
     itens: [
-      'Vazamento em Camisa de Eletrodo',
-      'Entupimento de Transporte',
-    ],
-    ivs: [
-      'Temp. dos Elevadores',
-      'Umidade Areia / MP',
-      'Tempo de Descarga',
+      { id: 1, nome: 'Vazamento em Camisa de Eletrodo' },
+      { id: 2, nome: 'Entupimento de Transporte' },
     ],
     valores: [
-      { mes: '1', valor: 5 },
-      { mes: '2', valor: 3 },
-      { mes: '3', valor: 7 },
-      { mes: '4', valor: 4 },
-      { mes: '5', valor: 6 },
-      { mes: '6', valor: 8 },
+      { mes: 'Jan', valor: 5 },
+      { mes: 'Fev', valor: 3 },
+      { mes: 'Mar', valor: 7 },
+      { mes: 'Abr', valor: 4 },
+      { mes: 'Mai', valor: 6 },
+      { mes: 'Jun', valor: 8 },
+    ],
+  },
+  ivsPreventivos: {
+    itens: [
+      { id: 1, nome: 'Temp. dos Elevadores' },
+      { id: 2, nome: 'Umidade Areia / MP' },
+      { id: 3, nome: 'Tempo de Descarga' },
+    ],
+    valores: [
+      { mes: 'Jan', valor: 4 },
+      { mes: 'Fev', valor: 6 },
+      { mes: 'Mar', valor: 5 },
+      { mes: 'Abr', valor: 7 },
+      { mes: 'Mai', valor: 3 },
+      { mes: 'Jun', valor: 6 },
+    ],
+  },
+  championForno: [
+    { id: 1, nome: 'João Silva', funcao: 'Operador', turno: 'A' },
+    { id: 2, nome: 'Maria Santos', funcao: 'Técnica', turno: 'B' },
+  ],
+  gestaoTS: {
+    texto: 'Acesse os padrões e informações de segurança abaixo:',
+    links: [
+      { id: 1, titulo: 'Padrão Operacional TS-01', url: 'https://' },
     ],
   },
   imagens: {
-    inventarioSIF: null,
-    sifFluxo: null,
-    championForno: null,
     alertaSeguranca: null,
   },
   estilo: {
@@ -58,11 +71,12 @@ const defaultData = {
     corLabelOrange: '#ff8c00',
     corLabelGray: '#555555',
     corLabelGreen: '#1a5c2e',
+    corLabelBlue: '#1565c0',
     corEngagementValor: '#1565c0',
     corRegrasBullet: '#e53935',
     corFundo: '#f5f5f0',
     fonteTitulos: 'Syne',
-    tamanhoEngagement: '2.2',
+    tamanhoEngagement: '1.4',
     tamanhoRegras: '0.95',
     tamanhoListas: '0.82',
   },
@@ -80,6 +94,13 @@ export function DataProvider({ children }) {
       if (snap.exists()) {
         const remoto = snap.data();
         remoto.estilo = { ...defaultData.estilo, ...(remoto.estilo || {}) };
+        // migrate old data structure
+        if (!remoto.territorioSeguro) remoto.territorioSeguro = defaultData.territorioSeguro;
+        if (!remoto.alertasSeguranca) remoto.alertasSeguranca = defaultData.alertasSeguranca;
+        if (!remoto.championForno) remoto.championForno = defaultData.championForno;
+        if (!remoto.gestaoTS) remoto.gestaoTS = defaultData.gestaoTS;
+        if (!remoto.ivsPreventivos) remoto.ivsPreventivos = defaultData.ivsPreventivos;
+        if (!remoto.ordensSeg) remoto.ordensSeg = defaultData.ordensSeg;
         setData(remoto);
       } else {
         setDoc(DOC_REF(), defaultData);
