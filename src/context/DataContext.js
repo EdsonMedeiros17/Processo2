@@ -79,6 +79,8 @@ const defaultData = {
     tamanhoEngagement: '1.4',
     tamanhoRegras: '0.95',
     tamanhoListas: '0.82',
+    tituloGente: 'GENTE',
+    tituloChampion: 'Champion Forno',
   },
 };
 
