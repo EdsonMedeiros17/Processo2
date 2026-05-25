@@ -399,10 +399,21 @@ function AbaEstilo({ data, salvar }) {
     { k: 'corRegrasBullet', label: 'Bullets das Regras' },
     { k: 'corFundo', label: 'Fundo da Página' },
   ];
-  const padrao = { corHeader: '#1a1a2e', corHeaderGente: '#1a3a2e', corLabelYellow: '#ffe600', corLabelOrange: '#ff8c00', corLabelGray: '#555555', corLabelGreen: '#1a5c2e', corRegrasBullet: '#e53935', corFundo: '#f5f5f0', fonteTitulos: 'Syne', tamanhoEngagement: '1.4', tamanhoRegras: '0.95', tamanhoListas: '0.82' };
+  const padrao = { corHeader: '#1a1a2e', corHeaderGente: '#1a3a2e', corLabelYellow: '#ffe600', corLabelOrange: '#ff8c00', corLabelGray: '#555555', corLabelGreen: '#1a5c2e', corRegrasBullet: '#e53935', corFundo: '#f5f5f0', fonteTitulos: 'Syne', tamanhoEngagement: '1.4', tamanhoRegras: '0.95', tamanhoListas: '0.82', tituloGente: 'GENTE', tituloChampion: 'Champion Forno' };
   return (
     <div className="aba-estilo">
       <p className="aba-desc">Personalize cores, fontes e tamanhos do quadro.</p>
+      <div className="estilo-section">
+        <h3>✏️ Títulos</h3>
+        <div className="form-group">
+          <label>Nome do cabeçalho "GENTE"</label>
+          <input type="text" value={form.tituloGente || 'GENTE'} onChange={e => set('tituloGente', e.target.value)} placeholder="Ex: GENTE" />
+        </div>
+        <div className="form-group" style={{ marginTop: 12 }}>
+          <label>Título da caixa Champion Forno</label>
+          <input type="text" value={form.tituloChampion || 'Champion Forno'} onChange={e => set('tituloChampion', e.target.value)} placeholder="Ex: Champion Forno" />
+        </div>
+      </div>
       <div className="estilo-section">
         <h3>🎨 Cores</h3>
         <div className="cores-grid">
