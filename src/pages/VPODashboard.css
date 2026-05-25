@@ -50,7 +50,7 @@
   flex-shrink: 0;
 }
 
-/* Gestão de TS */
+/* GestÃ£o de TS */
 .gestao-ts-body {
   padding: 12px 14px;
   flex: 1;
@@ -217,7 +217,7 @@
   font-style: italic;
 }
 
-/* Território Seguro */
+/* TerritÃ³rio Seguro */
 .ts-card { flex: 0 0 auto; }
 
 .ts-body {
@@ -264,7 +264,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-/* Ordens de Segurança */
+/* Ordens de SeguranÃ§a */
 .ordens-card {
   flex: 1;
 }
@@ -328,4 +328,108 @@
 @media (max-width: 900px) {
   .vpo-grid { grid-template-columns: 1fr; }
   .vpo-header { grid-template-columns: 1fr; }
+}
+
+/* â”€â”€ Scroll box â”€â”€ */
+.scroll-box {
+  max-height: 160px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f5f5f0;
+}
+
+.scroll-box::-webkit-scrollbar { width: 4px; }
+.scroll-box::-webkit-scrollbar-track { background: #f5f5f0; }
+.scroll-box::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+/* â”€â”€ Alertas com scroll â”€â”€ */
+.alertas-card { min-height: 0; }
+
+/* â”€â”€ Ordens com header + export â”€â”€ */
+.ordens-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ordens-card-header {
+  display: flex;
+  align-items: stretch;
+}
+
+.ordens-label {
+  flex: 1;
+  border-radius: 0;
+}
+
+.btn-excel {
+  background: #217346;
+  color: #fff;
+  border: none;
+  padding: 0 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-excel:hover { background: #1a5c38; }
+
+.ordens-thead {
+  display: grid;
+  grid-template-columns: 48px 64px 1fr 80px;
+  gap: 4px;
+  padding: 6px 10px;
+  background: #f5f5f0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.ordens-body {
+  flex: 1;
+  max-height: 220px;
+}
+
+.ordens-row {
+  display: grid;
+  grid-template-columns: 48px 64px 1fr 80px;
+  gap: 4px;
+  padding: 7px 10px;
+  border-bottom: 1px solid #f5f5f0;
+  align-items: center;
+}
+
+.ordens-row:last-child { border-bottom: none; }
+
+/* â”€â”€ WhatsApp button â”€â”€ */
+.btn-whatsapp {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  width: 46px;
+  height: 46px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  z-index: 998;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-whatsapp:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
 }
