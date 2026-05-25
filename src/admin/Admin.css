@@ -656,3 +656,41 @@
 }
 
 .form-group select:focus { border-color: #1565c0; }
+
+/* ── User info sidebar ── */
+.admin-user-info {
+  padding: 6px 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 8px;
+}
+
+.admin-user-email {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: #7a9cc0;
+  word-break: break-all;
+}
+
+.admin-nav-superadmin {
+  color: #ffd600 !important;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 12px !important;
+}
+
+.btn-logout {
+  background: none;
+  border: 1px solid rgba(255,59,92,0.3);
+  color: #ff3b5c;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 6px;
+  transition: background 0.2s;
+}
+
+.btn-logout:hover { background: rgba(255,59,92,0.1); }

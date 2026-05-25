@@ -1,0 +1,181 @@
+.ga-root {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px;
+  font-family: 'Syne', sans-serif;
+}
+
+.ga-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.ga-header h1 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.ga-voltar {
+  background: none;
+  border: 1px solid #ddd;
+  color: #666;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.ga-voltar:hover { color: #1a1a2e; border-color: #1a1a2e; }
+
+.ga-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.ga-card h2 {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.ga-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.form-group input {
+  padding: 9px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Syne', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus { border-color: #1565c0; }
+
+.ga-erro {
+  font-size: 0.75rem;
+  color: #c62828;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ga-sucesso {
+  font-size: 0.75rem;
+  color: #2e7d32;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ga-btn-cadastrar {
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ga-btn-cadastrar:hover:not(:disabled) { background: #1565c0; }
+.ga-btn-cadastrar:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.ga-vazio {
+  font-size: 0.82rem;
+  color: #aaa;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.ga-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ga-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ga-row:last-child { border-bottom: none; }
+
+.ga-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.ga-info { flex: 1; }
+
+.ga-nome {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.ga-email {
+  font-size: 0.72rem;
+  color: #888;
+  margin-top: 1px;
+}
+
+.ga-btn-remover {
+  background: none;
+  border: 1px solid #ffcdd2;
+  color: #c62828;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ga-btn-remover:hover { background: #ffebee; }

@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import GerenciarAdmins from './GerenciarAdmins';
 import { useData } from '../context/DataContext';
 import './Admin.css';
 
-const SENHA = 'ambev2025';
-
 export default function Admin({ onSair }) {
-  const [autenticado, setAutenticado] = useState(false);
-  const [senha, setSenha] = useState('');
-  const [erroSenha, setErroSenha] = useState(false);
   const [aba, setAba] = useState('ts');
   const [salvo, setSalvo] = useState(false);
+  const [gerenciarAdmins, setGerenciarAdmins] = useState(false);
   const { data, updateData } = useData();
-
-  const login = () => {
-    if (senha === SENHA) { setAutenticado(true); setErroSenha(false); }
-    else setErroSenha(true);
-  };
+  const { usuario, logout, isSuperAdmin } = useAuth();
 
   const salvar = (novoData) => {
     updateData(novoData);
@@ -23,23 +17,10 @@ export default function Admin({ onSair }) {
     setTimeout(() => setSalvo(false), 2000);
   };
 
-  if (!autenticado) {
-    return (
-      <div className="admin-login">
-        <div className="login-box">
-          <div className="login-logo">🛡️</div>
-          <h1>Portal Admin</h1>
-          <p>Quadro VPO — Ambev</p>
-          <input type="password" placeholder="Senha de acesso" value={senha}
-            onChange={e => setSenha(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && login()}
-            className={erroSenha ? 'erro' : ''} />
-          {erroSenha && <p className="erro-msg">Senha incorreta</p>}
-          <button onClick={login}>Entrar</button>
-          <button className="btn-voltar" onClick={onSair}>← Voltar ao quadro</button>
-        </div>
-      </div>
-    );
+  const handleLogout = async () => { await logout(); onSair(); };
+
+  if (gerenciarAdmins && isSuperAdmin) {
+    return <GerenciarAdmins onVoltar={() => setGerenciarAdmins(false)} />;
   }
 
   const abas = [
@@ -52,12 +33,16 @@ export default function Admin({ onSair }) {
     { id: 'champion', label: '🏆 Champion Forno' },
     { id: 'gestaots', label: '📁 Gestão de TS' },
     { id: 'estilo', label: '🎨 Personalização' },
+    { id: 'senha', label: '🔑 Alterar Senha' },
   ];
 
   return (
     <div className="admin-root">
       <aside className="admin-sidebar">
         <div className="admin-logo"><span>🛡️</span><span>Admin VPO</span></div>
+        <div className="admin-user-info">
+          <span className="admin-user-email">{usuario?.email}</span>
+        </div>
         {abas.map(item => (
           <button key={item.id}
             className={`admin-nav-btn ${aba === item.id ? 'ativo' : ''}`}
@@ -65,8 +50,14 @@ export default function Admin({ onSair }) {
             {item.label}
           </button>
         ))}
+        {isSuperAdmin && (
+          <button className="admin-nav-btn admin-nav-superadmin" onClick={() => setGerenciarAdmins(true)}>
+            👥 Gerenciar Admins
+          </button>
+        )}
         <div className="admin-sidebar-footer">
           <button className="btn-voltar-quadro" onClick={onSair}>← Ver Quadro</button>
+          <button className="btn-logout" onClick={handleLogout}>Sair</button>
         </div>
       </aside>
 
@@ -85,6 +76,7 @@ export default function Admin({ onSair }) {
           {aba === 'champion'   && <AbaChampion data={data} salvar={salvar} />}
           {aba === 'gestaots'   && <AbaGestaoTS data={data} salvar={salvar} />}
           {aba === 'estilo'     && <AbaEstilo data={data} salvar={salvar} />}
+          {aba === 'senha'      && <AbaAlterarSenha />}
         </div>
       </main>
     </div>
@@ -454,6 +446,53 @@ function AbaEstilo({ data, salvar }) {
         <button className="btn-salvar" onClick={() => salvar({ ...data, estilo: form })}>Salvar Personalização</button>
         <button className="btn-reset" onClick={() => { setForm(padrao); salvar({ ...data, estilo: padrao }); }}>Restaurar Padrão</button>
       </div>
+    </div>
+  );
+}
+
+/* ── Alterar Senha ── */
+function AbaAlterarSenha() {
+  const { alterarSenha } = useAuth();
+  const [novaSenha, setNovaSenha] = useState('');
+  const [confirmar, setConfirmar] = useState('');
+  const [erro, setErro] = useState('');
+  const [sucesso, setSucesso] = useState('');
+  const [carregando, setCarregando] = useState(false);
+
+  const handleAlterar = async () => {
+    setErro(''); setSucesso('');
+    if (!novaSenha || !confirmar) return setErro('Preencha os dois campos.');
+    if (novaSenha.length < 6) return setErro('Senha deve ter pelo menos 6 caracteres.');
+    if (novaSenha !== confirmar) return setErro('As senhas não coincidem.');
+    setCarregando(true);
+    try {
+      await alterarSenha(novaSenha);
+      setSucesso('Senha alterada com sucesso!');
+      setNovaSenha(''); setConfirmar('');
+    } catch (e) {
+      setErro('Erro ao alterar senha. Faça login novamente e tente.');
+    }
+    setCarregando(false);
+  };
+
+  return (
+    <div className="aba-form">
+      <p className="aba-desc">Altere sua senha de acesso ao painel admin.</p>
+      <div className="form-group">
+        <label>Nova Senha</label>
+        <input type="password" placeholder="Mínimo 6 caracteres" value={novaSenha}
+          onChange={e => setNovaSenha(e.target.value)} />
+      </div>
+      <div className="form-group">
+        <label>Confirmar Nova Senha</label>
+        <input type="password" placeholder="Repita a nova senha" value={confirmar}
+          onChange={e => setConfirmar(e.target.value)} />
+      </div>
+      {erro && <p style={{ color: '#c62828', fontSize: '0.78rem', fontWeight: 600 }}>{erro}</p>}
+      {sucesso && <p style={{ color: '#2e7d32', fontSize: '0.78rem', fontWeight: 600 }}>{sucesso}</p>}
+      <button className="btn-salvar" onClick={handleAlterar} disabled={carregando}>
+        {carregando ? 'Alterando...' : 'Alterar Senha'}
+      </button>
     </div>
   );
 }
