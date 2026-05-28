@@ -95,7 +95,7 @@ export function DataProvider({ children }) {
     const unsub = onSnapshot(DOC_REF(), (snap) => {
       if (snap.exists()) {
         const remoto = snap.data();
-        remoto.estilo = { ...defaultData.estilo, ...(remoto.estilo || {}) };
+        remoto.estilo = { ...defaultData.estilo, ...(remoto.estilo || {}), tituloGente: (remoto.estilo || {}).tituloGente || defaultData.estilo.tituloGente, tituloChampion: (remoto.estilo || {}).tituloChampion || defaultData.estilo.tituloChampion };
         // migrate old data structure
         if (!remoto.territorioSeguro) remoto.territorioSeguro = defaultData.territorioSeguro;
         // migrate old nivel text values to numbers
