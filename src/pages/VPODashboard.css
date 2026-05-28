@@ -50,7 +50,7 @@
   flex-shrink: 0;
 }
 
-/* GestÃ£o de TS */
+/* Gestão de TS */
 .gestao-ts-body {
   padding: 12px 14px;
   flex: 1;
@@ -217,7 +217,7 @@
   font-style: italic;
 }
 
-/* TerritÃ³rio Seguro */
+/* Território Seguro */
 .ts-card { flex: 0 0 auto; }
 
 .ts-body {
@@ -264,7 +264,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-/* Ordens de SeguranÃ§a */
+/* Ordens de Segurança */
 .ordens-card {
   flex: 1;
 }
@@ -330,7 +330,7 @@
   .vpo-header { grid-template-columns: 1fr; }
 }
 
-/* â”€â”€ Scroll box â”€â”€ */
+/* ── Scroll box ── */
 .scroll-box {
   max-height: 160px;
   overflow-y: auto;
@@ -342,10 +342,10 @@
 .scroll-box::-webkit-scrollbar-track { background: #f5f5f0; }
 .scroll-box::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
 
-/* â”€â”€ Alertas com scroll â”€â”€ */
+/* ── Alertas com scroll ── */
 .alertas-card { min-height: 0; }
 
-/* â”€â”€ Ordens com header + export â”€â”€ */
+/* ── Ordens com header + export ── */
 .ordens-card {
   flex: 1;
   display: flex;
@@ -409,7 +409,7 @@
 
 .ordens-row:last-child { border-bottom: none; }
 
-/* â”€â”€ WhatsApp button â”€â”€ */
+/* ── WhatsApp button ── */
 .btn-whatsapp {
   position: fixed;
   bottom: 70px;
