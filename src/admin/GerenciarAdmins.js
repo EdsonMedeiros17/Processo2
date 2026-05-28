@@ -10,7 +10,7 @@ export default function GerenciarAdmins({ onVoltar }) {
   const [sucesso, setSucesso] = useState('');
   const [carregando, setCarregando] = useState(false);
 
-  useEffect(() => { carregar(); }, []);
+  useEffect(() => { carregar(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const carregar = async () => {
     const lista = await listarAdmins();
