@@ -6,7 +6,6 @@ import {
   sendPasswordResetEmail,
   updatePassword,
   createUserWithEmailAndPassword,
-  deleteUser,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, collection, getDocs, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
