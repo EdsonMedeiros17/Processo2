@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
-import { DataProvider, useData } from './context/DataContext';
+import { DataProvider } from './context/DataContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import VPODashboard from './pages/VPODashboard';
 import Admin from './admin/Admin';
+import Login from './admin/Login';
 import './App.css';
 
 function AppInner() {
   const [modo, setModo] = useState('dashboard');
-  const { carregando } = useData();
+  const { usuario, isAdmin, carregando } = useAuth();
 
   if (carregando) {
     return (
       <div className="loading-screen">
         <div className="loading-spinner" />
-        <p>Carregando quadro...</p>
+        <p>Carregando...</p>
+      </div>
+    );
+  }
+
+  // Se clicou em Admin mas não está logado, mostra Login
+  if (modo === 'admin' && !usuario) {
+    return <Login onVoltar={() => setModo('dashboard')} />;
+  }
+
+  // Se está logado mas não tem perfil válido
+  if (modo === 'admin' && usuario && !isAdmin) {
+    return (
+      <div className="loading-screen">
+        <p>Acesso não autorizado.</p>
+        <button onClick={() => setModo('dashboard')} style={{ marginTop: 16, padding: '8px 20px', cursor: 'pointer' }}>
+          ← Voltar
+        </button>
       </div>
     );
   }
@@ -31,7 +50,7 @@ function AppInner() {
           </button>
         </>
       )}
-      {modo === 'admin' && (
+      {modo === 'admin' && usuario && isAdmin && (
         <Admin onSair={() => setModo('dashboard')} />
       )}
     </div>
@@ -40,8 +59,10 @@ function AppInner() {
 
 export default function App() {
   return (
-    <DataProvider>
-      <AppInner />
-    </DataProvider>
+    <AuthProvider>
+      <DataProvider>
+        <AppInner />
+      </DataProvider>
+    </AuthProvider>
   );
 }
