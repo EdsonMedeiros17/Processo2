@@ -29,7 +29,6 @@ export default function VPODashboard() {
           precursoresSIF, ivsPreventivos, championForno, gestaoTS, estilo: e } = data;
 
   const shareWhatsApp = () => {
-    const url = encodeURIComponent(window.location.href);
     const msg = encodeURIComponent('Confira o Quadro VPO: ' + window.location.href);
     window.open(`https://wa.me/?text=${msg}`, '_blank');
   };
